@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">НМедиа</string>
     <string name="app_text">НМедиа!</string>
+    <string name="description_avatar">Аватар автора поста</string>
+    <string name="description_menu">Меню поста</string>
+    <string name="description_likes">Количество лайков</string>
+    <string name="description_shares">Количество поделившихся</string>
+    <string name="description_views">Количество просмотров</string>
 </resources>
