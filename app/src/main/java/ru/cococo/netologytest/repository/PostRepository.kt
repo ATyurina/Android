@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import ru.cococo.netologytest.kot.Post
 
 interface PostRepository {
-    fun get(): LiveData<Post>
-    fun like()
-    fun shared()
-    fun viewed()
+    fun getAll(): LiveData<List<Post>>
+    fun likeById(id: Long)
+    fun shared(id: Long)
+    fun viewed(id: Long)
 }
