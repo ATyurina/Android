@@ -32,33 +32,6 @@ class MainActivity() : AppCompatActivity(){
         viewModel.data.observe(this) {posts->
             adapter.submitList(posts)
         }
-//        viewModel.data.observe(this){ post ->
-//            with(binding) {
-//                author.text = post.author
-//                published.text = post.published
-//                content.text = post.content
-//                like.setImageResource(
-//                    if (post.likedByMe) R.drawable.baseline_favorite_24 else R.drawable.baseline_favorite_border_24
-//                )
-//                val transform  = GetCountFormat()
-//                likeCount.text = transform.getFormat(post.likes)
-//                shareCount.text = transform.getFormat(post.shared)
-//                viewCount.text = transform.getFormat(post.viewed)
-//
-//            }
-//            binding.like.setOnClickListener {
-//                viewModel.like()
-//            }
-//            binding.share.setOnClickListener {
-//                viewModel.shared()
-//            }
-//            binding.view.setOnClickListener {
-//                viewModel.viewed()
-//            }
-//        }
-//
-//        println("OnCreate $this")
-//    }
     }
 }
 
