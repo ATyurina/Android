@@ -47,6 +47,7 @@ tools:context=".MainActivity">
         android:src="@drawable/baseline_check_circle_outline_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/description_save"
     />
 
     <ImageView
@@ -58,6 +59,7 @@ tools:context=".MainActivity">
         app:layout_constraintEnd_toStartOf="@id/edit"
         app:layout_constraintBottom_toTopOf="@id/content"
         android:layout_margin="10dp"
+        android:contentDescription="@string/description_edit_img"
         />
 
     <TextView
@@ -70,6 +72,7 @@ tools:context=".MainActivity">
         android:padding="3dp"
         app:layout_constraintStart_toEndOf="@id/pencil"
         app:layout_constraintEnd_toStartOf="@id/cancel"
+        android:contentDescription="@string/description_edit_hint"
     />
 
     <TextView
@@ -94,6 +97,7 @@ tools:context=".MainActivity">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/content"
         android:padding="4dp"
+        android:contentDescription="@string/description_edit_hint"
         />
 
     <androidx.constraintlayout.widget.Group

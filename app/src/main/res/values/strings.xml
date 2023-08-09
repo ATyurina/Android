@@ -11,4 +11,8 @@
     <string name="error_empty_content">New Post can`t be empty!</string>
     <string name="menu_edit">Edit</string>
     <string name="hint_edit">Edit Message</string>
+    <string name="description_save">Save button</string>
+    <string name="description_edit_img">Edit img</string>
+    <string name="description_edit_hint">Edit description hint</string>
+    <string name="description_cancel_button">Cancel button</string>
 </resources>

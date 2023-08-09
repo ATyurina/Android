@@ -11,6 +11,10 @@
     <string name="post_text">Текст поста</string>
     <string name="error_empty_content">Новый пост не может быть пустым!</string>
     <string name="menu_edit">Редактировать</string>
+    <string name="description_save">" Кнопка сохранения"</string>
     <string name="hint_cancel">" Редактировать сообщение"</string>
     <string name="hint_edit">" Редактировать сообщение"</string>
+    <string name="description_edit_img">Картинка редактирования</string>
+    <string name="description_edit_hint">Подсказка редактирования</string>
+    <string name="description_cancel_button">Кнопка выхода</string>
 </resources>
