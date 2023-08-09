@@ -2,6 +2,7 @@ package ru.cococo.netologytest.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,15 +11,21 @@ import ru.cococo.netologytest.databinding.CartPostBinding
 import ru.cococo.netologytest.kot.GetCountFormat
 import ru.cococo.netologytest.kot.Post
 
-typealias OnLikeListener = (post: Post) -> Unit
-typealias OnShareListener = (post: Post) -> Unit
-typealias OnViewListener = (post: Post) -> Unit
+interface OnInteractionListener {
+    fun like (post: Post)
+    fun share (post: Post)
+    fun view (post: Post)
+    fun remove (post: Post)
+    fun edit (post: Post)
+}
 
-class PostsAdapter(private val onLikeListener: OnLikeListener, private val onShareListener: OnShareListener, private val onViewListener: OnViewListener) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
+class PostsAdapter(
+    private val onInteractionListener: OnInteractionListener
+) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CartPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, onLikeListener, onShareListener, onViewListener)
+        return PostViewHolder(binding, onInteractionListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -30,9 +37,7 @@ class PostsAdapter(private val onLikeListener: OnLikeListener, private val onSha
 
 class PostViewHolder(
     private val binding: CartPostBinding,
-    private val onLikeListener: OnLikeListener,
-    private val onShareListener: OnShareListener,
-    private val onViewListener: OnViewListener
+    private val onInteractionListener: OnInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Post) {
         binding.apply {
@@ -47,13 +52,31 @@ class PostViewHolder(
             shareCount.text = transform.getFormat(post.shared)
             viewCount.text = transform.getFormat(post.viewed)
             like.setOnClickListener{
-                onLikeListener(post)
+                onInteractionListener.like(post)
             }
             share.setOnClickListener{
-                onShareListener(post)
+                onInteractionListener.share(post)
             }
             view.setOnClickListener {
-                onViewListener(post)
+                onInteractionListener.view(post)
+            }
+            menu.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.menu_options)
+                    setOnMenuItemClickListener {item ->
+                        when (item.itemId) {
+                            R.id.remove -> {
+                                onInteractionListener.remove(post)
+                                true
+                            }
+                            R.id.edit -> {
+                                onInteractionListener.edit(post)
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }.show()
             }
         }
     }
