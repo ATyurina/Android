@@ -14,7 +14,7 @@ import ru.cococo.netologytest.util.AndroidUtils.focusAndShowKeyboard
 import ru.cococo.netologytest.viewmodel.PostViewModel
 
 
-class MainActivity() : AppCompatActivity(){
+class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +72,6 @@ class MainActivity() : AppCompatActivity(){
             binding.content.clearFocus()
             binding.group.visibility = View.GONE
             AndroidUtils.hideKeyboard(it)
-            return@setOnClickListener;
         }
         binding.save.setOnClickListener {
             binding.group.visibility = View.GONE
