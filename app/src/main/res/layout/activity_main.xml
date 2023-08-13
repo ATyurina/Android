@@ -97,7 +97,7 @@ tools:context=".MainActivity">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/content"
         android:padding="4dp"
-        android:contentDescription="@string/description_edit_hint"
+        android:contentDescription="@string/description_cancel_button"
         />
 
     <androidx.constraintlayout.widget.Group
