@@ -44,9 +44,7 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            like.setImageResource (
-                if (post.likedByMe) R.drawable.baseline_favorite_24 else R.drawable.baseline_favorite_border_24
-            )
+            like.isChecked = post.likedByMe
             val transform  = GetCountFormat()
             likeCount.text = transform.getFormat(post.likes)
             shareCount.text = transform.getFormat(post.shared)
