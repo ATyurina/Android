@@ -155,8 +155,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacing"
-        android:paddingStart="@dimen/icon_spacing"
-        android:text="1.2M"
+        android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier2" />
 
