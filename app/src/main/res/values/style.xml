@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.AppTheme.LikeButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/like_selector</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.App.Button.OutlinedButton.IconOnly.ShareButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconTint">@color/share_selector</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.App.Button.OutlinedButton.IconOnly.MenuButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconTint">@color/design_default_color_primary</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.AppTheme.OptionalButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/purple_500</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
+</resources>

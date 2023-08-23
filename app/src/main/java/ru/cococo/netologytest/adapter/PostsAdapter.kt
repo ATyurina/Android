@@ -45,9 +45,10 @@ class PostViewHolder(
             published.text = post.published
             content.text = post.content
             like.isChecked = post.likedByMe
+
             val transform  = GetCountFormat()
-            likeCount.text = transform.getFormat(post.likes)
-            shareCount.text = transform.getFormat(post.shared)
+            like.text = transform.getFormat(post.likes)
+            icon2.text = transform.getFormat(post.shared)
             viewCount.text = transform.getFormat(post.viewed)
             like.setOnClickListener{
                 onInteractionListener.like(post)
@@ -58,7 +59,7 @@ class PostViewHolder(
             view.setOnClickListener {
                 onInteractionListener.view(post)
             }
-            menu.setOnClickListener {
+            icon1.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.menu_options)
                     setOnMenuItemClickListener {item ->
