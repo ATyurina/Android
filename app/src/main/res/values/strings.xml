@@ -6,6 +6,9 @@
     <string name="description_likes">Likes count</string>
     <string name="description_shares">Shares count</string>
     <string name="description_views">Views count</string>
+    <string name="description_play">Play video button</string>
+    <string name="description_add_new_post">Add new post</string>
+    <string name="description_save_new_post">Save new post</string>
     <string name="menu_remove">Remove</string>
     <string name="post_text">Post Text</string>
     <string name="error_empty_content">New Post can`t be empty!</string>
@@ -15,4 +18,6 @@
     <string name="description_edit_img">Edit img</string>
     <string name="description_edit_hint">Edit description hint</string>
     <string name="description_cancel_button">Cancel button</string>
+    <string name="chooser_share_post">Share</string>
+    <string name="chooser_play_video">Play video</string>
 </resources>

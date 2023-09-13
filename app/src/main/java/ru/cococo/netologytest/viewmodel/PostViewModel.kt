@@ -12,7 +12,8 @@ private val empty = Post (
     content = "",
     published = "",
     likedByMe = false,
-    isSharedByMe = false
+    isSharedByMe = false,
+    video = null
 )
 class PostViewModel: ViewModel() {
     private val repository: PostRepository = PostRepositoryInMemoryImplementation()

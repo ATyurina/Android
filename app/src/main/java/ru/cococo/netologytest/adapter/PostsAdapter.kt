@@ -1,6 +1,7 @@
 package ru.cococo.netologytest.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
@@ -17,6 +18,8 @@ interface OnInteractionListener {
     fun view (post: Post)
     fun remove (post: Post)
     fun edit (post: Post)
+
+    fun playVideo (post: Post)
 }
 
 class PostsAdapter(
@@ -45,6 +48,8 @@ class PostViewHolder(
             published.text = post.published
             content.text = post.content
             like.isChecked = post.likedByMe
+            group.visibility = if (post.video != null)
+                    { View.VISIBLE} else {View.GONE}
 
             val transform  = GetCountFormat()
             like.text = transform.getFormat(post.likes)
@@ -58,6 +63,12 @@ class PostViewHolder(
             }
             view.setOnClickListener {
                 onInteractionListener.view(post)
+            }
+            play.setOnClickListener {
+                onInteractionListener.playVideo(post)
+            }
+            video.setOnClickListener {
+                onInteractionListener.playVideo(post)
             }
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
