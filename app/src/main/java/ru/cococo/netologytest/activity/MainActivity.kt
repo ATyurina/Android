@@ -1,10 +1,10 @@
 package ru.cococo.netologytest.activity
 
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import ru.cococo.netologytest.R
@@ -15,17 +15,23 @@ import ru.cococo.netologytest.kot.Post
 import ru.cococo.netologytest.viewmodel.PostViewModel
 
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val pref = getPreferences(Context.MODE_PRIVATE)
+
+        val result = pref.getString("key", null)
+        println(result)
+
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val viewModel: PostViewModel by viewModels()
 
-        val adapter = PostsAdapter (object: OnInteractionListener{
+        val adapter = PostsAdapter(object : OnInteractionListener {
             override fun like(post: Post) {
                 viewModel.likeById(post.id)
             }
@@ -38,8 +44,11 @@ class MainActivity : AppCompatActivity(){
                 viewModel.removeByTd(post.id)
             }
 
-            val editPostLauncher = registerForActivityResult(EditPostResultContract()) {result->
-                result ?: return@registerForActivityResult
+            val editPostLauncher = registerForActivityResult(EditPostResultContract()) { result ->
+                if (result.isNullOrBlank()) {
+                    viewModel.clear()
+                    return@registerForActivityResult
+                }
                 viewModel.changeContentAndSave(result)
             }
 
@@ -54,25 +63,27 @@ class MainActivity : AppCompatActivity(){
                     putExtra(Intent.EXTRA_TEXT, post.content)
                     type = "text/plain"
                 }
-                val shareIntent = Intent.createChooser(intent, getString(R.string.chooser_share_post))
+                val shareIntent =
+                    Intent.createChooser(intent, getString(R.string.chooser_share_post))
                 startActivity(shareIntent)
             }
 
 
             override fun playVideo(post: Post) {
                 val intent = Intent(Intent.ACTION_VIEW, post.video)
-                val playVideoIntent = Intent.createChooser(intent, getString(R.string.chooser_play_video))
+                val playVideoIntent =
+                    Intent.createChooser(intent, getString(R.string.chooser_play_video))
                 startActivity(playVideoIntent)
             }
         })
 
         binding.list.adapter = adapter
 
-        viewModel.data.observe(this) {posts->
-               adapter.submitList(posts)
+        viewModel.data.observe(this) { posts ->
+            adapter.submitList(posts)
         }
 
-        val newPostLauncher = registerForActivityResult(NewPostResultContract()) {result->
+        val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
             result ?: return@registerForActivityResult
             viewModel.changeContentAndSave(result)
         }
@@ -83,8 +94,6 @@ class MainActivity : AppCompatActivity(){
 
     }
 }
-
-
 
 
 //        viewModel.edited.observe(this) {

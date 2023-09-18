@@ -19,14 +19,16 @@ class EditPostActivity: AppCompatActivity()  {
         val text: String? = bundle?.getString("content")
         binding.editPost.setText(text)
         binding.editPost.requestFocus()
-        binding.cancelEdit.setOnClickListener { finish() }
+        binding.cancelEdit.setOnClickListener {
+            finish()
+        }
         binding.saveEdit.setOnClickListener {
             val intent = Intent()
             if (binding.editPost.text.isNullOrBlank()){
                 setResult(Activity.RESULT_CANCELED, intent)
             } else {
-                val text = binding.editPost.text.toString()
-                intent.putExtra(Intent.EXTRA_TEXT, text)
+                val editText = binding.editPost.text.toString()
+                intent.putExtra(Intent.EXTRA_TEXT, editText)
                 setResult(Activity.RESULT_OK, intent)
             }
             finish()

@@ -1,10 +1,11 @@
 package ru.cococo.netologytest.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import ru.cococo.netologytest.kot.Post
 import ru.cococo.netologytest.repository.PostRepository
-import ru.cococo.netologytest.repository.PostRepositoryInMemoryImplementation
+import ru.cococo.netologytest.repository.PostRepositoryInFailImplementation
 
 private val empty = Post (
     id = 0,
@@ -15,8 +16,8 @@ private val empty = Post (
     isSharedByMe = false,
     video = null
 )
-class PostViewModel: ViewModel() {
-    private val repository: PostRepository = PostRepositoryInMemoryImplementation()
+class PostViewModel(application: Application): AndroidViewModel(application) {
+    private val repository: PostRepository = PostRepositoryInFailImplementation(application)
 
     val data = repository.getAll()
     val edited = MutableLiveData(empty)
