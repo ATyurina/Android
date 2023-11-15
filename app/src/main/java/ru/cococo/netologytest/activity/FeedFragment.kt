@@ -1,59 +1,69 @@
 package ru.cococo.netologytest.activity
 
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.result.launch
-import androidx.activity.viewModels
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import ru.cococo.netologytest.R
+
+import ru.cococo.netologytest.activity.NewPostFragment.Companion.textArg
 import ru.cococo.netologytest.adapter.OnInteractionListener
 import ru.cococo.netologytest.adapter.PostsAdapter
-import ru.cococo.netologytest.databinding.ActivityMainBinding
+import ru.cococo.netologytest.databinding.FragmentFeedBinding
 import ru.cococo.netologytest.kot.Post
 import ru.cococo.netologytest.viewmodel.PostViewModel
 
 
-class MainActivity : AppCompatActivity() {
+class FeedFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val pref = getPreferences(Context.MODE_PRIVATE)
-
-        val result = pref.getString("key", null)
-        println(result)
+    val viewModel: PostViewModel by viewModels(
+        ownerProducer = ::requireParentFragment
+    )
 
 
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val viewModel: PostViewModel by viewModels()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val binding = FragmentFeedBinding.inflate(
+            inflater,
+            container,
+            false
+        )
 
         val adapter = PostsAdapter(object : OnInteractionListener {
+            override fun open(post: Post) {
+                findNavController().navigate(R.id.action_feedFragment_to_cardPostFragment)
+                viewModel.edit(post)
+            }
+//                    R.id.action_feedFragment_to_cardPostFragment,
+//                    Bundle().apply {
+//                        postArg = post
+//                    })}
+
             override fun like(post: Post) {
                 viewModel.likeById(post.id)
             }
 
             override fun view(post: Post) {
-                viewModel.viewed(post.id)
+                viewModel.view(post.id)
             }
 
             override fun remove(post: Post) {
-                viewModel.removeByTd(post.id)
-            }
-
-            val editPostLauncher = registerForActivityResult(EditPostResultContract()) { result ->
-                if (result.isNullOrBlank()) {
-                    viewModel.clear()
-                    return@registerForActivityResult
-                }
-                viewModel.changeContentAndSave(result)
+                viewModel.removeById(post.id)
             }
 
             override fun edit(post: Post) {
-                editPostLauncher.launch(post.content)
+                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment,
+                    Bundle().apply {
+                        textArg = post.content
+                    })
                 viewModel.edit(post)
             }
 
@@ -66,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                 val shareIntent =
                     Intent.createChooser(intent, getString(R.string.chooser_share_post))
                 startActivity(shareIntent)
+                viewModel.share(post.id)
             }
 
 
@@ -78,21 +89,18 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.list.adapter = adapter
-
-        viewModel.data.observe(this) { posts ->
+        viewModel.data.observe(viewLifecycleOwner) { posts ->
             adapter.submitList(posts)
         }
 
-        val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
-            result ?: return@registerForActivityResult
-            viewModel.changeContentAndSave(result)
-        }
 
         binding.fab.setOnClickListener {
-            newPostLauncher.launch()
+            findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
         }
 
+        return binding.root
     }
+
 }
 
 

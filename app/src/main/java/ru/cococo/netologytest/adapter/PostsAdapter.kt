@@ -8,18 +8,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.cococo.netologytest.R
-import ru.cococo.netologytest.databinding.CartPostBinding
+import ru.cococo.netologytest.databinding.FragmentCartPostBinding
 import ru.cococo.netologytest.kot.GetCountFormat
 import ru.cococo.netologytest.kot.Post
 
 interface OnInteractionListener {
-    fun like (post: Post)
-    fun share (post: Post)
-    fun view (post: Post)
-    fun remove (post: Post)
-    fun edit (post: Post)
 
-    fun playVideo (post: Post)
+    fun open(post: Post)
+    fun like(post: Post)
+    fun share(post: Post)
+    fun view(post: Post)
+    fun remove(post: Post)
+    fun edit(post: Post)
+
+    fun playVideo(post: Post)
 }
 
 class PostsAdapter(
@@ -27,7 +29,8 @@ class PostsAdapter(
 ) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        val binding = CartPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            FragmentCartPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostViewHolder(binding, onInteractionListener)
     }
 
@@ -39,7 +42,7 @@ class PostsAdapter(
 }
 
 class PostViewHolder(
-    private val binding: CartPostBinding,
+    private val binding: FragmentCartPostBinding,
     private val onInteractionListener: OnInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Post) {
@@ -48,17 +51,23 @@ class PostViewHolder(
             published.text = post.published
             content.text = post.content
             like.isChecked = post.likedByMe
-            group.visibility = if (post.video != null)
-                    { View.VISIBLE} else {View.GONE}
+            group.visibility = if (post.video != null) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
 
-            val transform  = GetCountFormat()
+            val transform = GetCountFormat()
             like.text = transform.getFormat(post.likes)
-            share.text = transform.getFormat(post.shared)
-            viewCount.text = transform.getFormat(post.viewed)
-            like.setOnClickListener{
+            share.text = transform.getFormat(post.share)
+            viewCount.text = transform.getFormat(post.view)
+            content.setOnClickListener {
+                onInteractionListener.open(post)
+            }
+            like.setOnClickListener {
                 onInteractionListener.like(post)
             }
-            share.setOnClickListener{
+            share.setOnClickListener {
                 onInteractionListener.share(post)
             }
             view.setOnClickListener {
@@ -73,16 +82,18 @@ class PostViewHolder(
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.menu_options)
-                    setOnMenuItemClickListener {item ->
+                    setOnMenuItemClickListener { item ->
                         when (item.itemId) {
                             R.id.remove -> {
                                 onInteractionListener.remove(post)
                                 true
                             }
+
                             R.id.edit -> {
                                 onInteractionListener.edit(post)
                                 true
                             }
+
                             else -> false
                         }
                     }
