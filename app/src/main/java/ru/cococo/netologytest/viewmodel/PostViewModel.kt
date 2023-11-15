@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import ru.cococo.netologytest.db.AppDb
 import ru.cococo.netologytest.kot.Post
 import ru.cococo.netologytest.repository.PostRepository
-import ru.cococo.netologytest.repository.PostRepositorySQLiteImpl
+import ru.cococo.netologytest.repository.PostRepositoryRoomImpl
 
 private val empty = Post(
     id = 0,
@@ -18,7 +18,7 @@ private val empty = Post(
 )
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: PostRepository = PostRepositorySQLiteImpl(
+    private val repository: PostRepository = PostRepositoryRoomImpl(
         AppDb.getInstance(application).postDao
     )
 
@@ -49,7 +49,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun share(id: Long) = repository.share(id)
 
-    fun view(id: Long) = repository.view(id)
+    fun viewed(id: Long) = repository.viewed(id)
 
     fun removeById(id: Long) = repository.removeById(id)
 }

@@ -17,7 +17,7 @@ interface OnInteractionListener {
     fun open(post: Post)
     fun like(post: Post)
     fun share(post: Post)
-    fun view(post: Post)
+    fun viewed(post: Post)
     fun remove(post: Post)
     fun edit(post: Post)
 
@@ -60,7 +60,7 @@ class PostViewHolder(
             val transform = GetCountFormat()
             like.text = transform.getFormat(post.likes)
             share.text = transform.getFormat(post.share)
-            viewCount.text = transform.getFormat(post.view)
+            viewCount.text = transform.getFormat(post.viewed)
             content.setOnClickListener {
                 onInteractionListener.open(post)
             }
@@ -71,7 +71,7 @@ class PostViewHolder(
                 onInteractionListener.share(post)
             }
             view.setOnClickListener {
-                onInteractionListener.view(post)
+                onInteractionListener.viewed(post)
             }
             play.setOnClickListener {
                 onInteractionListener.playVideo(post)
