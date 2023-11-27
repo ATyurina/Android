@@ -20,4 +20,8 @@
     <string name="description_cancel_button">Cancel button</string>
     <string name="chooser_share_post">Share</string>
     <string name="chooser_play_video">Play video</string>
+    <string name="google_play_unavailable">Google Api Unavailable</string>
+    <string name="notification_user_liked">User %1$s liked %2$s\'s post</string>
+    <string name="channel_remote_name">Server notifications</string>
+    <string name="channel_remote_description">Notifications from remote server</string>
 </resources>

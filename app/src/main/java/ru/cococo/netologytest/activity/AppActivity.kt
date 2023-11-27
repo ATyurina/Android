@@ -1,9 +1,16 @@
 package ru.cococo.netologytest.activity
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.firebase.messaging.FirebaseMessaging
 import ru.cococo.netologytest.R
 import ru.cococo.netologytest.activity.NewPostFragment.Companion.textArg
 
@@ -30,5 +37,21 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
                 }
             )
         }
+        requestNotificationsPermission()
     }
+
+    private fun requestNotificationsPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            return
+        }
+
+        val permission = Manifest.permission.POST_NOTIFICATIONS
+
+        if (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+
+        requestPermissions(arrayOf(permission), 1)
+    }
+
 }
