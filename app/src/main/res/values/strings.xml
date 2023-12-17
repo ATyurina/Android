@@ -6,4 +6,22 @@
     <string name="description_likes">Likes count</string>
     <string name="description_shares">Shares count</string>
     <string name="description_views">Views count</string>
+    <string name="description_play">Play video button</string>
+    <string name="description_add_new_post">Add new post</string>
+    <string name="description_save_new_post">Save new post</string>
+    <string name="menu_remove">Remove</string>
+    <string name="post_text">Post Text</string>
+    <string name="error_empty_content">New Post can`t be empty!</string>
+    <string name="menu_edit">Edit</string>
+    <string name="hint_edit">Edit Message</string>
+    <string name="description_save">Save button</string>
+    <string name="description_edit_img">Edit img</string>
+    <string name="description_edit_hint">Edit description hint</string>
+    <string name="description_cancel_button">Cancel button</string>
+    <string name="chooser_share_post">Share</string>
+    <string name="chooser_play_video">Play video</string>
+    <string name="google_play_unavailable">Google Api Unavailable</string>
+    <string name="notification_user_liked">User %1$s liked %2$s\'s post</string>
+    <string name="channel_remote_name">Server notifications</string>
+    <string name="channel_remote_description">Notifications from remote server</string>
 </resources>

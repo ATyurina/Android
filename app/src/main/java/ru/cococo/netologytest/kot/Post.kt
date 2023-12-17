@@ -1,12 +1,15 @@
 package ru.cococo.netologytest.kot
 
+import android.net.Uri
+
 data class Post(
     val id: Long,
     val author: String,
     val content: String,
     val published: String,
-    var likes: Int = 1999,
-    var likedByMe: Boolean,
-    var shared: Int = 0,
-    var viewed: Int = 0
+    val likes: Int = 0,
+    val likedByMe: Boolean,
+    val share: Int = 0,
+    val viewed: Int = 0,
+    val video: Uri? = null
 )
